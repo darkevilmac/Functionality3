@@ -34,4 +34,3 @@ License
 All classes/images under src/main are licensed with [Creative Commons] unless otherwise stated
 
 [Creative Commons]:http://creativecommons.org/licenses/by-nc-sa/4.0/
-{\rtf1}
