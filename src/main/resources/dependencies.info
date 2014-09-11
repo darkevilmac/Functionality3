@@ -1,0 +1,6 @@
+{
+	"repo": "https://raw.github.com/Legacy/temp-maven-repo/master",
+	"file": "codecjlayermp3-r2.jar",
+	"dev": "codecjlayermp3-r2.jar",
+	"class": "de.cuina.fireandfuel.CodecJLayerMP3",
+}

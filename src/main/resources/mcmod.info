@@ -1,0 +1,16 @@
+[
+{
+  "modid": "functionality3",
+  "name": "Functionality³",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["ExampleDude"],
+  "credits": "darkevilmac as well as Kihira for FoxLib",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
