@@ -181,5 +181,82 @@ class MultiBattery(var energy: MultiEnergy, var maxEnergy: MultiEnergy, var tran
     maxEnergy.getRF
   }
 
+  /**
+   * Add energy to the battery in Fluid.
+   *
+   * @param amount the amount to add in Fluid.
+   * @param simulate if true energy will not be added.
+   * @return amount added.
+   */
+  def addFluid(amount: Int, conversionRate: Int, simulate: Boolean): Int = {
+    var amountAdded: Int = amount
+    var amountAddedClone: Int = amountAdded
+
+    if (amountAdded > transferRate.getFluid(conversionRate)) {
+      amountAdded = transferRate.getFluid(conversionRate)
+      amountAddedClone = amountAdded
+    }
+
+    if ((new QuickMultiEnergy(0.0).addFluid(amountAddedClone, conversionRate).rawEnergy + energy.rawEnergy) > maxEnergy.rawEnergy) {
+      amountAdded = amountAddedClone - (amountAddedClone + energy.getFluid(conversionRate) - maxEnergy.getFluid(conversionRate))
+    }
+
+    if (!simulate) {
+      energy.addFluid(amountAdded, conversionRate)
+    }
+    amountAdded
+  }
+
+  /**
+   * Use energy in the battery in Fluid.
+   *
+   * @param amount the amount to use in Fluid.
+   * @param simulate if true energy will not be used.
+   * @return amount used.
+   */
+  def useFluid(amount: Int, conversionRate: Int, simulate: Boolean): Int = {
+    var amountUsed: Int = amount
+
+    if (amountUsed > transferRate.getFluid(conversionRate)) {
+      amountUsed = transferRate.getFluid(conversionRate)
+    }
+
+    if ((energy.rawEnergy - new QuickMultiEnergy(0.0).addFluid(amount, conversionRate).rawEnergy) < 0.0) {
+      amountUsed = energy.getFluid(conversionRate)
+    }
+
+    if (!simulate) {
+      energy.useFluid(amountUsed, conversionRate)
+    }
+    amountUsed
+  }
+
+  /**
+   * Gets the amount of energy in the battery in Fluid.
+   *
+   * @return The amount of energy the battery currently contains in Fluid.
+   */
+  def getFluid(conversionRate: Int): Int = {
+    energy.getFluid(conversionRate)
+  }
+
+  /**
+   * Set the energy in the battery in Fluid.
+   *
+   * @param amount the amount to set it to in Fluid
+   */
+  def setFluid(amount: Int, conversionRate: Int) {
+    energy.setFluid(amount, conversionRate)
+  }
+
+  /**
+   * Gets the maximum amount of energy that can be stored in the battery in Fluid.
+   *
+   * @return The amount of energy the battery currently contains in Fluid.
+   */
+  def getMaxFluid(conversionRate: Int): Int = {
+    maxEnergy.getFluid(conversionRate)
+  }
+
 
 }

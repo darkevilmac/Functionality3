@@ -26,7 +26,7 @@ class TileMultiPowerEmitter(var battery: MultiBattery, parent: TileEntity, var a
 
   override def updateEntity {
     if (worldObj == null) {
-      worldObj = parent.worldObj
+      worldObj = parent.getWorldObj
       if (worldObj == null) {
         return
       }
@@ -43,6 +43,19 @@ class TileMultiPowerEmitter(var battery: MultiBattery, parent: TileEntity, var a
     pushToConsumers
   }
 
+  def pushToConsumers() {
+    if (tileBuffer == null) {
+      tileBuffer = TileBuffer.makeBuffer(worldObj, xCoord, yCoord, zCoord, false)
+    }
+    RFEnergyUtils.pushRFToConsumers(this, battery.transferRate.getRF, tileBuffer)
+  }
+
+  def setAcceptableDirections(newAcceptableDirections: Array[ForgeDirection]) {
+    unloadEnet
+    acceptableDirections = newAcceptableDirections
+    loadEnet
+  }
+
   def loadEnet() {
     if (!addedToEnet && !FMLCommonHandler.instance.getEffectiveSide.isClient && Info.isIc2Available) {
       worldObj = parent.getWorldObj
@@ -57,19 +70,6 @@ class TileMultiPowerEmitter(var battery: MultiBattery, parent: TileEntity, var a
       MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this))
       addedToEnet = true
     }
-  }
-
-  def pushToConsumers() {
-    if (tileBuffer == null) {
-      tileBuffer = TileBuffer.makeBuffer(worldObj, xCoord, yCoord, zCoord, false)
-    }
-    RFEnergyUtils.pushRFToConsumers(this, battery.transferRate.getRF, tileBuffer)
-  }
-
-  def setAcceptableDirections(newAcceptableDirections: Array[ForgeDirection]) {
-    unloadEnet
-    acceptableDirections = newAcceptableDirections
-    loadEnet
   }
 
   def unloadEnet() {

@@ -78,4 +78,39 @@ class MultiEnergy(var rawEnergy: Double) {
     }
   }
 
+  def addFluid(amount: Int, conversionRate: Int) {
+    rawEnergy = rawEnergy + (amount * conversionRate)
+    if (rawEnergy < 0) {
+      rawEnergy = 0
+    }
+  }
+
+  def useFluid(amount: Int, conversionRate: Int) {
+    var rawEnergyClone: Double = rawEnergy
+
+    while (rawEnergyClone >= conversionRate) {
+      rawEnergyClone = rawEnergyClone - conversionRate
+    }
+
+    rawEnergy = rawEnergyClone
+
+    if (rawEnergy < 0) {
+      rawEnergy = 0
+    }
+  }
+
+  def getFluid(conversionRate: Int): Int = {
+    if (rawEnergy < 0) {
+      rawEnergy = 0
+    }
+    return (rawEnergy / conversionRate).asInstanceOf[Int]
+  }
+
+  def setFluid(amount: Int, conversionRate: Int) {
+    rawEnergy = conversionRate * amount
+    if (rawEnergy < 0) {
+      rawEnergy = 0
+    }
+  }
+
 }

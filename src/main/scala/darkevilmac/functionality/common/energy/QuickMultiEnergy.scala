@@ -75,4 +75,38 @@ class QuickMultiEnergy(var rawEnergy: Double) {
     returnInt
   }
 
+  def addFluid(amount: Int, conversionRate: Int): QuickMultiEnergy = {
+    rawEnergy = rawEnergy + (amount * conversionRate)
+
+    this
+  }
+
+  def useFluid(amount: Int, conversionRate: Int): QuickMultiEnergy = {
+    var rawEnergyClone: Int = rawEnergy.asInstanceOf[Int]
+
+    while (rawEnergyClone >= conversionRate) {
+      rawEnergyClone = rawEnergyClone - conversionRate
+    }
+
+    this
+  }
+
+  def setFluid(amount: Int, conversionRate: Int): QuickMultiEnergy = {
+    rawEnergy = conversionRate * amount
+
+    this
+  }
+
+  def getFluid(conversionRate: Int): Int = {
+    var returnInt: Int = 0
+    var rawEnergyClone = rawEnergy
+
+    while (rawEnergyClone >= conversionRate) {
+      returnInt = returnInt + 1
+      rawEnergyClone = rawEnergy - conversionRate
+    }
+
+    returnInt
+  }
+
 }

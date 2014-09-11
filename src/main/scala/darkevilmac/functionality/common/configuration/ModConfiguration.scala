@@ -9,7 +9,7 @@ import net.minecraftforge.common.config.Configuration
  */
 object ModConfiguration {
 
-  def init(e: FMLPreInitializationEvent){
+  def init(e: FMLPreInitializationEvent) {
     Functionality.config = new Configuration(e.getSuggestedConfigurationFile)
   }
 

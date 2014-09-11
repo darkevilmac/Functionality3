@@ -3,7 +3,7 @@ package darkevilmac.functionality.common.tileentity
 import cofh.api.energy.IEnergyStorage
 import cpw.mods.fml.common.FMLCommonHandler
 import darkevilmac.functionality.common.energy.MultiBattery
-import darkevilmac.functionality.common.util.{RFEnergyUtils, IC2EnergyUtils}
+import darkevilmac.functionality.common.util.{IC2EnergyUtils, RFEnergyUtils}
 import ic2.api.energy.EnergyNet
 import ic2.api.energy.event.{EnergyTileLoadEvent, EnergyTileUnloadEvent}
 import ic2.api.energy.tile.{IEnergySink, IEnergySource}
@@ -20,7 +20,7 @@ class TileMultiPowerStorage(var battery: MultiBattery, parent: TileEntity, var a
 
   override def updateEntity {
     if (worldObj == null) {
-      worldObj = parent.worldObj
+      worldObj = parent.getWorldObj
       if (worldObj == null) {
         return
       }

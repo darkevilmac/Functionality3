@@ -16,7 +16,7 @@ object RFEnergyUtils {
   def pushRFToConsumers(storage: IEnergyStorage, energyCap: Int, tileBuffer: Array[TileBuffer]) {
     var amountToPush = energyCap
     for (side <- ForgeDirection.VALID_DIRECTIONS) {
-      val energy:Int = storage.extractEnergy(amountToPush, true)
+      val energy: Int = storage.extractEnergy(amountToPush, true)
       if (energy > 0) {
         val tile = tileBuffer(side.ordinal()).getTile
         if (tile.isInstanceOf[IEnergyHandler]) {
